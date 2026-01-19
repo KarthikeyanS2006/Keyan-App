@@ -1,0 +1,38 @@
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'providers/theme_provider.dart';
+import 'screens/home_screen.dart';
+
+void main() {
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => ThemeProvider(),
+      child: const PortfolioApp(),
+    ),
+  );
+}
+
+class PortfolioApp extends StatelessWidget {
+  const PortfolioApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<ThemeProvider>(
+      builder: (context, themeProvider, child) {
+        return MaterialApp(
+          title: 'Karthikeyan Portfolio',
+          debugShowCheckedModeBanner: false,
+          themeMode: themeProvider.themeMode,
+          theme: ThemeProvider.lightTheme.copyWith(
+            textTheme: GoogleFonts.outfitTextTheme(ThemeData.light().textTheme),
+          ),
+          darkTheme: ThemeProvider.darkTheme.copyWith(
+            textTheme: GoogleFonts.outfitTextTheme(ThemeData.dark().textTheme),
+          ),
+          home: const HomeScreen(),
+        );
+      },
+    );
+  }
+}
