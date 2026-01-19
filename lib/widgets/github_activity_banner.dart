@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import '../services/github_service.dart';
+import '../services/notification_service.dart';
 
 class GitHubActivityBanner extends StatefulWidget {
   const GitHubActivityBanner({super.key});
@@ -13,6 +14,7 @@ class _GitHubActivityBannerState extends State<GitHubActivityBanner> {
   List<GitHubEvent> _events = [];
   bool _isLoading = true;
   bool _showBanner = false;
+  DateTime? _lastNotifiedTime;
 
   @override
   void initState() {
@@ -23,6 +25,20 @@ class _GitHubActivityBannerState extends State<GitHubActivityBanner> {
   Future<void> _fetchEvents() async {
     final events = await GitHubService.getUserRecentPushes();
     if (mounted) {
+      if (events.isNotEmpty) {
+        final latestEvent = events.first;
+        
+        // Show system notification if it's a new event we haven't notified about yet
+        if (_lastNotifiedTime == null || latestEvent.createdAt.isAfter(_lastNotifiedTime!)) {
+          await NotificationService.showNotification(
+            id: latestEvent.createdAt.millisecondsSinceEpoch ~/ 1000,
+            title: 'New GitHub Activity! 🚀',
+            body: '${latestEvent.repoName}: ${latestEvent.commitMessage ?? "New push"}',
+          );
+          _lastNotifiedTime = latestEvent.createdAt;
+        }
+      }
+
       setState(() {
         _events = events;
         _isLoading = false;
