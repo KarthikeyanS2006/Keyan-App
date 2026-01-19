@@ -21,7 +21,7 @@ class PortfolioApp extends StatelessWidget {
     return Consumer<ThemeProvider>(
       builder: (context, themeProvider, child) {
         return MaterialApp(
-          title: 'Karthikeyan Portfolio',
+          title: 'Keyan Portfolio',
           debugShowCheckedModeBanner: false,
           themeMode: themeProvider.themeMode,
           theme: ThemeProvider.lightTheme.copyWith(
