@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class NotificationService {
@@ -31,7 +32,7 @@ class NotificationService {
       channelDescription: 'Notifications for GitHub activity',
       importance: Importance.max,
       priority: Priority.high,
-      color: Color(0xFFFF9800),
+      color: Colors.orange,
     );
 
     const DarwinNotificationDetails iosDetails = DarwinNotificationDetails();
