@@ -1,11 +1,11 @@
 {
-    "name": "keyanapp",
-    "short_name": "keyanapp",
+    "name": "Keyan Portfolio",
+    "short_name": "Keyan",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "background_color": "#121212",
+    "theme_color": "#FF9800",
+    "description": "Keyan Portfolio - Personal Developer Portfolio",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

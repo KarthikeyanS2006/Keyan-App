@@ -43,6 +43,34 @@ class _HomeScreenState extends State<HomeScreen> {
             duration: 400.ms,
             child: _sections[_selectedIndex],
           ),
+          // Logo in top-left
+          Positioned(
+            top: MediaQuery.of(context).padding.top + 8,
+            left: 16,
+            child: Container(
+              padding: const EdgeInsets.all(4),
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.surface.withOpacity(0.9),
+                shape: BoxShape.circle,
+                border: Border.all(color: Colors.orange.withOpacity(0.3)),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.2),
+                    blurRadius: 8,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: ClipOval(
+                child: Image.asset(
+                  'assets/images/logo.png',
+                  width: 40,
+                  height: 40,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+          ).animate().fadeIn(delay: 500.ms).slideX(begin: -0.5),
           // Theme toggle button
           Positioned(
             top: MediaQuery.of(context).padding.top + 8,
