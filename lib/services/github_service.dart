@@ -15,6 +15,7 @@ class GitHubService {
 
       if (response.statusCode == 200) {
         final Map<String, dynamic> data = json.decode(response.body);
+        if (data.isEmpty) return {};
         final int total = data.values.fold(0, (sum, val) => sum + (val as int));
         
         return data.map((key, value) => 
@@ -22,9 +23,26 @@ class GitHubService {
         );
       }
     } catch (e) {
-      print('Error fetching languages: $e');
+      print('Error fetching languages for $repoName: $e');
     }
     return {};
+  }
+
+  // Fetch all public repositories for the user
+  static Future<List<Map<String, dynamic>>> getRepositories() async {
+    try {
+      final response = await http.get(
+        Uri.parse('$_baseUrl/users/$_username/repos?sort=updated&per_page=100'),
+        headers: {'Accept': 'application/vnd.github.v3+json'},
+      );
+
+      if (response.statusCode == 200) {
+        return List<Map<String, dynamic>>.from(json.decode(response.body));
+      }
+    } catch (e) {
+      print('Error fetching repositories: $e');
+    }
+    return [];
   }
 
   // Fetch recent events for a repository
